@@ -1,17 +1,22 @@
 import {useCallback, useState} from 'react';
 import {useLoaderData} from 'remix';
 
-const getAdvice = async () => {
-  return await (await fetch('https://api.adviceslip.com/advice')).json();
-};
+// const getAdvice = async () => {
+//   return await (await fetch('https://api.adviceslip.com/advice')).json();
+// };
 
-export const loader = async () => {
-  return getAdvice();
-};
+// export const loader = async () => {
+//   return getAdvice();
+// };
 
 export default function Index() {
-  let advice = useLoaderData();
-  const [adviceState, setAdviceState] = useState(advice);
+  // let advice = useLoaderData();
+  const [adviceState, setAdviceState] = useState({
+    slip: {
+      id: 18,
+      advice: "Don't judge a book by its cover, unless it has a synopsis on the back.",
+    },
+  });
 
   const fetchAdvice = useCallback(async () => {
     const newAdvice = await (
@@ -21,7 +26,7 @@ export default function Index() {
   }, []);
 
   return (
-    advice && (
+    adviceState && (
       <div className="grid h-screen place-items-center bg-[#202733] px-4 font-extrabold">
         <div className="relative w-full rounded-[10px] bg-[#313A48] px-6 pt-10 pb-16 text-center sm:max-w-[540px] sm:px-12 sm:pt-12 sm:pb-[72px]">
           <span className="text-[11px] tracking-[3.46px] text-[#53FFAA]">
